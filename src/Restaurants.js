@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import {ThemeProvider} from "@material-ui/styles";
@@ -20,6 +20,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Pagination from "@material-ui/lab/Pagination";
+import usePagination from "./Pagination";
+import { default as data } from "./MOCK_DATA.json";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
 
 export default function Restaurants() {
 
@@ -30,12 +34,33 @@ export default function Restaurants() {
         marginTop: '25px',}
 
     const RestaurantsList = [
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 1, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 2, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 3, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 4, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 5, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 6, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 7, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 8, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 9, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 10, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 11, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 12, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 13, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+        { id: 14, name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
 
     ];
+
+    let [page, setPage] = useState(1);
+    const PER_PAGE = 4;
+
+    const count = Math.ceil(data.length / PER_PAGE);
+    const _DATA = usePagination(data, PER_PAGE);
+
+    const handleChange = (e, p) => {
+        setPage(p);
+        _DATA.jump(p);
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -73,20 +98,20 @@ export default function Restaurants() {
             <Grid container
                   justify={'center'}
                   alignContent={'center'}
-                  spacing={5}
+                  spacing={10}
             >
                 <Grid item
                       justify={'center'}
                       alignContent={'center'}>
-                    <div style={{ marginTop: 20, padding: 30 }}>
-                        <Grid container spacing={40} justify="center">
-                            {RestaurantsList.map(post => (
-                                <Grid item key={post.name}>
+
+                        <Grid container spacing={2} justify="center">
+                            {_DATA.currentData().map(post => (
+                                <Grid style={{display:"flex"}} item key={post.id}>
                                     <Card>
                                         <CardActionArea>
                                             <CardMedia
                                                 component="img"
-                                                alt="Contemplative Reptile"
+                                                alt="Image not available"
                                                 height="170"
                                                 image={post.image}
                                                 title="Contemplative Reptile"
@@ -104,10 +129,10 @@ export default function Restaurants() {
                                 </Grid>
                             ))}
                         </Grid>
-                    </div>
                 </Grid>
 
             </Grid>
+
             <Grid container
                   justify={'center'}
                   alignContent={'center'}
@@ -116,9 +141,16 @@ export default function Restaurants() {
                 <Grid item
                       justify={'center'}
                       alignContent={'center'}>
-                    <Pagination count={4} defaultPage={1} boundaryCount={3} />
-                </Grid>
+                    <Pagination
+                        count={count}
+                        size="large"
+                        page={page}
+                        variant="outlined"
+                        shape="rounded"
+                        onChange={handleChange}
+                    />                </Grid>
             </Grid>
+
         </div>
         </ThemeProvider>
     );

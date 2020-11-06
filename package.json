@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/icons": "^4.9.1",
     "autoresponsive-react": "^1.1.31",
     "axios": "^0.21.0"
   }

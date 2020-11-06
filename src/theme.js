@@ -1,6 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 
-import {grey, deepPurple, amber, yellow} from '@material-ui/core/colors';
 import green from "@material-ui/core/colors/green";
 
 const theme = createMuiTheme({
@@ -25,8 +24,8 @@ theme.props = {
     MuiTab: {
         background: "primary",
         border: 0,
-        borderRadius: 3,   },
-
+        borderRadius: 3,
+    },
 };
 
 export default theme;

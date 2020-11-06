@@ -7,9 +7,9 @@ import Visited from "./Visited";
 import {styled} from "@material-ui/core/styles";
 
 const Home = props => {
-    const { match, history } = props;
-    const { params } = match;
-    const { page } = params;
+    const {match, history} = props;
+    const {params} = match;
+    const {page} = params;
 
     const tabNameToIndex = {
         0: "Restaurants",
@@ -27,7 +27,6 @@ const Home = props => {
         history.push(`/home/${tabNameToIndex[newValue]}`);
         setSelectedTab(newValue);
     };
-
 
 
     const MyTitle = styled("h2")({
@@ -50,15 +49,15 @@ const Home = props => {
             <>
                 <AppBar position="static">
                     <div style={divStyle}>
-                    <MyTitle>Resto</MyTitle>
-                    <Tabs value={selectedTab} onChange={handleChange}>
-                        <Tab label="Restaurants" />
-                        <Tab label="Visited" />
-                    </Tabs>
+                        <MyTitle>Resto</MyTitle>
+                        <Tabs value={selectedTab} onChange={handleChange}>
+                            <Tab label="Restaurants"/>
+                            <Tab label="Visited"/>
+                        </Tabs>
                     </div>
                 </AppBar>
-                {selectedTab === 0 && <Restaurants />}
-                {selectedTab === 1 && <Visited />}
+                {selectedTab === 0 && <Restaurants/>}
+                {selectedTab === 1 && <Visited/>}
             </>
         </ThemeProvider>
     );

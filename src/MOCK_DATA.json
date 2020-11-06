@@ -1,7 +1,11 @@
 [
-  { "id": "1", "name": "Tabaleye", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
-  { "id": "2", "name": "Turki", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
-  { "id": "3", "name": "KFC", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
-  { "id": "4", "name": "Dominos Pizza", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
-  { "id": "5", "name": "Macdonaldes", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"}
+  { "id": "1", "name": "Pizza Hut", "type": "American", "averageCost": "20", "address": "Nabatieh", "phoneNumber": "76947094", "image": "./images/image1.jpg"},
+  { "id": "2", "name": "Turki", "type": "Turkish", "averageCost": "20", "address": "Beirut", "phoneNumber": "76135425", "image": "./images/image1.jpg"},
+  { "id": "3", "name": "KFC", "type": "American", "averageCost": "16", "address": "Sidon", "phoneNumber": "03574681", "image": "./images/image1.jpg"},
+  { "id": "4", "name": "Dominos Pizza", "type": "American", "averageCost": "30", "address": "Tyre", "phoneNumber": "81654859", "image": "./images/image1.jpg"},
+  { "id": "5", "name": "Macdonaldes", "type": "American", "averageCost": "25", "address": "Nabatieh", "phoneNumber": "71445963", "image": "./images/image1.jpg"},
+  { "id": "6", "name": "Cremino", "type": "Italian", "averageCost": "10", "address": "Beirut", "phoneNumber": "78148935", "image": "./images/image1.jpg"},
+  { "id": "7", "name": "Perfetto", "type": "Italian", "averageCost": "12", "address": "Nabatieh", "phoneNumber": "70159753", "image": "./images/image1.jpg"},
+  { "id": "8", "name": "Alfredo", "type": "Italian", "averageCost": "18", "address": "Sidon", "phoneNumber": "03147935", "image": "./images/image1.jpg"},
+  { "id": "9", "name": "Babel", "type": "Lebanese", "averageCost": "30", "address": "Beirut", "phoneNumber": "71465378", "image": "./images/image1.jpg"}
 ]

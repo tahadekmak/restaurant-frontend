@@ -1,0 +1,7 @@
+[
+  { "id": "1", "name": "Tabaleye", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
+  { "id": "2", "name": "Turki", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
+  { "id": "3", "name": "KFC", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
+  { "id": "4", "name": "Dominos Pizza", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"},
+  { "id": "5", "name": "Macdonaldes", "type": "Lebanese", "averageCost": "100", "address": "Nabatieh", "phoneNumber": "76947094", "image": "https://imgur.com/hTkpXvw"}
+]

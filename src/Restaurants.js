@@ -34,17 +34,7 @@ export default function Restaurants() {
         { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
         { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
         { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
-        { name: 'Tabaleye', type: 'Lebanese', averageCost: 100, address: 'Nabatieh', phoneNumber: '76947094', image: "https://imgur.com/hTkpXvw"},
+
     ];
 
     return (
@@ -97,23 +87,17 @@ export default function Restaurants() {
                                             <CardMedia
                                                 component="img"
                                                 alt="Contemplative Reptile"
-                                                height="140"
+                                                height="170"
                                                 image={post.image}
                                                 title="Contemplative Reptile"
                                             />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="h2">
-                                                    {post.name}
-                                                </Typography>
-                                                <Typography component="p">{post.name}</Typography>
-                                            </CardContent>
                                         </CardActionArea>
                                         <CardActions>
+                                            <h3>
+                                                {post.name}
+                                            </h3>
                                             <Button size="small" color="primary">
-                                                Share
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Learn More
+                                                Check in
                                             </Button>
                                         </CardActions>
                                     </Card>

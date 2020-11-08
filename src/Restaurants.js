@@ -33,13 +33,19 @@ import CallIcon from '@material-ui/icons/Call';
 
 export default function Restaurants() {
 
-    const divStyle1 = {
-        width: '200px',
+
+    const divstyle1 = {
+        minWidth: '200px',
     }
 
     const divstyle2 = {
         marginTop: '25px',
     }
+
+    const divstyle3 = {
+     padding: "40px"
+}
+
 
     let [page, setPage] = useState(1);
     const PER_PAGE = 4;
@@ -63,7 +69,8 @@ export default function Restaurants() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div>
+            <div style={divstyle3}>
+            <div >
                 <Grid container
                       justify={'center'}
                       alignContent={'center'}
@@ -76,13 +83,13 @@ export default function Restaurants() {
                             variant="outlined"/>
                     </Grid>
                     <Grid item>
-                        <div style={divStyle1}>
+                        <div >
                             <Autocomplete
                                 id="dropDownAutoComplete"
                                 Choose Category
                                 options={data.map((option) => option.name)}
                                 renderInput={(params) => (
-                                    <TextField {...params} label="Choose Category" margin="normal" variant="outlined"/>
+                                    <TextField {...params} style={divstyle1} label="Category" margin="normal" variant="outlined"/>
                                 )}
                             />
                         </div>
@@ -93,11 +100,11 @@ export default function Restaurants() {
                         </div>
                     </Grid>
                 </Grid>
-
+                </div>
                 <Grid container
                       justify={'center'}
                       alignContent={'center'}
-                      spacing={10}
+                      spacing={5}
                 >
                     <Grid item
                           justify={'center'}
@@ -153,8 +160,6 @@ export default function Restaurants() {
                         />
                     </Grid>
                 </Grid>
-
-            </div>
 
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogContent dividers>
@@ -239,6 +244,7 @@ export default function Restaurants() {
 
                 </DialogActions>
             </Dialog>
+            </div>
         </ThemeProvider>
     );
 }

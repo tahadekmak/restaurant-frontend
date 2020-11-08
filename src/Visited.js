@@ -3,15 +3,15 @@ import Grid from "@material-ui/core/Grid";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {TableCell} from "@material-ui/core";
+import {Button, TableCell} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
+import Box from "@material-ui/core/Box";
 
 function Visited() {
-
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
@@ -41,28 +41,19 @@ function Visited() {
         {name: "Al Turki", date: "28/8/1997"},
     ];
 
-    const useStyles = makeStyles({
-        table: {
-            minWidth: 400,
-        },
-    });
-
-    const classes = useStyles();
-
+    const divStyle = {
+        padding: "20px",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
     return (
 
-        <div style={{padding: "20px"}}>
-            <Grid container
-                  justify={'center'}
-                  alignContent={'center'}
-                  spacing={5}
-            >
-                <Grid item
-                      justify={'center'}
-                      alignContent={'center'}>
+        <div style={divStyle}>
 
+            <Box width="80%" bgcolor={"red.300"}>
                     <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="customized table">
+                        <Table aria-label="customized table">
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>Restaurant</StyledTableCell>
@@ -79,9 +70,7 @@ function Visited() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
-                </Grid>
-            </Grid>
+            </Box>
         </div>
     );
 }

@@ -5,6 +5,11 @@ import {AppBar, Tab, Tabs} from "@material-ui/core";
 import Restaurants from "./Restaurants";
 import Visited from "./Visited";
 import {styled} from "@material-ui/core/styles";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Slide from "@material-ui/core/Slide";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import PropTypes from 'prop-types';
+import Toolbar from "@material-ui/core/Toolbar";
 
 const Home = props => {
     const {match, history} = props;
@@ -28,7 +33,6 @@ const Home = props => {
         setSelectedTab(newValue);
     };
 
-
     const MyTitle = styled("h2")({
         display: 'flex',
         background: "primary",
@@ -44,10 +48,34 @@ const Home = props => {
         background: theme
     }
 
+    function HideOnScroll(props) {
+        const { children, window } = props;
+        // Note that you normally won't need to set the window ref as useScrollTrigger
+        // will default to window.
+        // This is only being set here because the demo is in an iframe.
+        const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+        return (
+            <Slide appear={false} direction="down" in={!trigger}>
+                {children}
+            </Slide>
+        );
+    }
+
+    HideOnScroll.propTypes = {
+        children: PropTypes.element.isRequired,
+        /**
+         * Injected by the documentation to work in an iframe.
+         * You won't need it on your project.
+         */
+        window: PropTypes.func,
+    };
     return (
         <ThemeProvider theme={theme}>
             <>
-                <AppBar position="static">
+                <CssBaseline />
+                <HideOnScroll  {...props}>
+                <AppBar>
                     <div style={divStyle}>
                         <MyTitle>Resto</MyTitle>
                         <Tabs value={selectedTab} onChange={handleChange}>
@@ -56,6 +84,8 @@ const Home = props => {
                         </Tabs>
                     </div>
                 </AppBar>
+                </HideOnScroll>
+                <Toolbar />
                 {selectedTab === 0 && <Restaurants/>}
                 {selectedTab === 1 && <Visited/>}
             </>

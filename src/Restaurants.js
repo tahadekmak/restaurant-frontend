@@ -1,75 +1,86 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {ThemeProvider} from "@material-ui/styles";
 import theme from "./theme";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import Pagination from "@material-ui/lab/Pagination";
 import usePagination from "./Pagination";
-import {default as data} from "./MOCK_DATA.json";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import image1 from "./images/image1.jpg"
-import Typography from "@material-ui/core/Typography";
-import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import PublicIcon from '@material-ui/icons/Public';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import CallIcon from '@material-ui/icons/Call';
+import RestaurantDialog from "./components/RestaurantDialog";
+import RestaurantCard from "./components/RestaurantCard";
+import {useDispatch, useSelector} from "react-redux";
+import ColoredLinearProgress from "./components/ColoredLinearProgress";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 export default function Restaurants() {
-
 
     const divstyle1 = {
         minWidth: '200px',
     }
 
     const divstyle2 = {
-        marginTop: '25px',
+        display: 'flex',  justifyContent:'center', alignItems:'center',
+    padding: "5px"}
+
+    const buttonStyle = {
+        margin: "10px"
     }
 
     const divstyle3 = {
      padding: "40px"
 }
 
+    const categories = [
+        "American",
+        "Turkish",
+        "Lebanese",
+        "Italian"
+    ];
+
+    const [restaurantName, setRestaurantName] = useState("");
+    const handleNameTextFieldChange = event => {setRestaurantName(event.target.value);}
+
+    const [value, setValue] = React.useState(null);
+    const [restaurantCategory, setRestaurantCategory] = React.useState('');
+
+    const dispatch = useDispatch();
+    const restaurants = useSelector(state => state.restaurants.restaurants);
+    const loading = useSelector(state => state.restaurants.loading);
+    const error = useSelector(state => state.restaurants.error);
+
+    const PER_PAGE = 4;
+    const dataCount = Math.ceil(restaurants.length / PER_PAGE);
+
+    const getRestaurantsByNameClicked = () => {
+        dispatch({type: 'GET_BY_NAME_RESTAURANTS_REQUESTED', name: {restaurantName}});
+    }
+
+    const getRestaurantsByCategoryClicked = () => {
+        dispatch({type: 'GET_BY_CATEGORY_RESTAURANTS_REQUESTED', category: {restaurantCategory}});
+    }
 
     let [page, setPage] = useState(1);
-    const PER_PAGE = 4;
 
-    const count = Math.ceil(data.length / PER_PAGE);
-    const _DATA = usePagination(data, PER_PAGE);
+    const _DATA = usePagination(restaurants, PER_PAGE);
 
     const handleChange = (e, p) => {
+        console.log(dataCount);
         setPage(p);
         _DATA.jump(p);
     };
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     return (
         <ThemeProvider theme={theme}>
+
+            <div>
+                {loading && <ColoredLinearProgress />}
+
+            </div>
+
             <div style={divstyle3}>
+
             <div >
                 <Grid container
                       justify={'center'}
@@ -77,28 +88,44 @@ export default function Restaurants() {
                       spacing={5}
                 >
                     <Grid item>
+                        <div style={divstyle2}>
                         <TextField
-                            label="Search Restaurants"
+                            label="Search in Restaurants"
                             margin="normal"
-                            variant="outlined"/>
+                            variant="outlined"
+                            value={restaurantName}
+                            onChange={handleNameTextFieldChange}/>
+                        <Button style={buttonStyle} variant="contained"  color="primary" onClick={getRestaurantsByNameClicked}>Search</Button>
+                        </div>
                     </Grid>
+
                     <Grid item>
-                        <div >
+                        <div style={divstyle2}>
                             <Autocomplete
                                 id="dropDownAutoComplete"
                                 Choose Category
-                                options={data.map((option) => option.name)}
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                                inputValue={restaurantCategory}
+                                onInputChange={(event, newInputValue) => {
+                                    setRestaurantCategory(newInputValue);
+                                }}
+                                options={categories.map((option) => option)}
                                 renderInput={(params) => (
-                                    <TextField {...params} style={divstyle1} label="Category" margin="normal" variant="outlined"/>
+                                    <TextField
+                                        {...params}
+                                        style={divstyle1}
+                                        label="Search by Category"
+                                        margin="normal"
+                                        variant="outlined"/>
                                 )}
                             />
+                            <Button style={buttonStyle} variant="contained" color="primary" onClick={getRestaurantsByCategoryClicked}>Search</Button>
                         </div>
                     </Grid>
-                    <Grid item alignContent={"center"} alignItems={"center"}>
-                        <div style={divstyle2}>
-                            <Button variant="contained" color="primary">Search</Button>
-                        </div>
-                    </Grid>
+
                 </Grid>
                 </div>
                 <Grid container
@@ -106,40 +133,20 @@ export default function Restaurants() {
                       alignContent={'center'}
                       spacing={5}
                 >
-                    <Grid item
-                          justify={'center'}
-                          alignContent={'center'}>
+                    <>
+                        {restaurants.length === 0 && !loading && <h1>Search Restaurants by Name or Category</h1>}
+                        {restaurants.length > 0 && _DATA.currentData().map((restaurant) => (
+                            <Grid item
+                                  justify={'center'}
+                                  alignContent={'center'}>
 
-                        <Grid container spacing={2} justify="center">
-                            {_DATA.currentData().map(post => (
-                                <Grid style={{display: "flex"}} item key={post.id}>
-                                    <Card elevation={5}>
-                                        <CardActionArea onClick={handleClickOpen}>
+                                <RestaurantCard  key={restaurant.id} restaurant={restaurant}/>
 
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="h3">
-                                                    {post.name}
-                                                </Typography>
-                                            </CardContent>
+                            </Grid>
 
-                                            <CardMedia
-                                                component="img"
-                                                alt="Image not available"
-                                                height="170"
-                                                image={image1}
-                                                title="Contemplative Reptile"
-                                            />
-                                        </CardActionArea>
-                                        <CardActions style={{float: "right"}}>
-                                            <Button color="primary">
-                                                Check in
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Grid>
+                        ))}
+                    </>
+
                 </Grid>
 
                 <Grid container
@@ -150,100 +157,24 @@ export default function Restaurants() {
                     <Grid item
                           justify={'center'}
                           alignContent={'center'}>
-                        <Pagination
-                            count={count}
+                        {restaurants.length > 0 && <Pagination
+                            count={dataCount}
                             size="large"
                             page={page}
                             variant="outlined"
                             shape="rounded"
                             onChange={handleChange}
-                        />
+                        />}
+
                     </Grid>
                 </Grid>
 
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                <DialogContent dividers>
-
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm container>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
-                                    <div>
-                                        <div>
-                                            <ButtonBase>
-                                                <img src={image1} alt={""}/>
-                                            </ButtonBase>
-                                        </div>
-                                        <div>
-                                            <List>
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <RestaurantIcon/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Name" secondary={data[0].name}/>
-                                                </ListItem>
-                                                <Divider/>
-
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <PublicIcon/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Type" secondary={data[0].type}/>
-                                                </ListItem>
-                                                <Divider/>
-
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <AttachMoneyIcon/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Average Cost"
-                                                                  secondary={data[0].averageCost + " $ for 2 persons"}/>
-                                                </ListItem>
-                                                <Divider/>
-
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <LocationOnIcon/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Address" secondary={data[0].address}/>
-                                                </ListItem>
-                                                <Divider/>
-
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <CallIcon/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary="Call us" secondary={data[0].phoneNumber}/>
-                                                </ListItem>
-                                            </List>
-                                        </div>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button color="primary">
-                        Check in
-                    </Button>
-
-                </DialogActions>
-            </Dialog>
+                <RestaurantDialog />
+            </div>
+            <div>
+                <Snackbar open={error && !loading} autoHideDuration={3000}>
+                    <Alert variant="filled" severity="error">{error} !</Alert>
+                </Snackbar>
             </div>
         </ThemeProvider>
     );

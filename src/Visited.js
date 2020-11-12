@@ -1,15 +1,15 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
+import React, {useEffect} from "react";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {Button, TableCell} from "@material-ui/core";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import {TableCell} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import Box from "@material-ui/core/Box";
+import {useDispatch, useSelector} from "react-redux";
+import Typography from "@material-ui/core/Typography";
 
 function Visited() {
 
@@ -33,24 +33,28 @@ function Visited() {
         },
     }))(TableRow);
 
-    const rows = [
-        {name: "Al Turki", date: "28/8/1997"},
-        {name: "Al Turki", date: "28/8/1997"},
-        {name: "Al Turki", date: "28/8/1997"},
-        {name: "Al Turki", date: "28/8/1997"},
-        {name: "Al Turki", date: "28/8/1997"},
-    ];
-
     const divStyle = {
         padding: "20px",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
     }
+
+    const dispatch = useDispatch();
+    const visits = useSelector(state => state.visits.visits);
+    const loading = useSelector(state => state.visits.loading);
+    const error = useSelector(state => state.visits.error);
+    const personId = 1;
+
+    useEffect(() => {
+        dispatch({type: 'GET_BY_PERSON_ID_VISITS_REQUESTED', id: {personId}})
+    }, [dispatch])
+
     return (
 
         <div style={divStyle}>
-
+            <Typography gutterBottom variant="h5" component="h3">
+            </Typography>
             <Box width="80%" bgcolor={"red.300"}>
                     <TableContainer component={Paper}>
                         <Table aria-label="customized table">
@@ -61,10 +65,10 @@ function Visited() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
-                                    <StyledTableRow key={row.name}>
-                                        <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.date}</StyledTableCell>
+                                {visits.map((row) => (
+                                    <StyledTableRow key={row.restaurantName}>
+                                        <StyledTableCell component="th" scope="row">{row.restaurantName}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.visitDate}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>

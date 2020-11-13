@@ -20,8 +20,17 @@ import {Button} from "@material-ui/core";
 import React from "react";
 
 const RestaurantDialog = (props) => {
+
+    const closeDialog = (event) => {
+        props.parentCallback(false);
+        event.preventDefault();
+    };
+
     return (
-        <Dialog aria-labelledby="customized-dialog-title" open={false}>
+        <Dialog aria-labelledby="customized-dialog-title"
+                open={props.dialogState}
+                onClose={closeDialog}>
+
             <DialogContent dividers>
 
                 <Grid container spacing={2}>
@@ -95,7 +104,7 @@ const RestaurantDialog = (props) => {
 
             </DialogContent>
             <DialogActions>
-                <Button color="primary">
+                <Button color="primary" onClick={closeDialog}>
                     Close
                 </Button>
                 <Button color="primary">

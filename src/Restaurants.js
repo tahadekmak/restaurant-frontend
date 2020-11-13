@@ -54,11 +54,13 @@ export default function Restaurants() {
     const dataCount = Math.ceil(restaurants.length / PER_PAGE);
 
     const getRestaurantsByNameClicked = () => {
-        dispatch({type: 'GET_BY_NAME_RESTAURANTS_REQUESTED', name: {restaurantName}});
+        if(restaurantName.length>0)
+            dispatch({type: 'GET_BY_NAME_RESTAURANTS_REQUESTED', name: {restaurantName}});
     }
 
     const getRestaurantsByCategoryClicked = () => {
-        dispatch({type: 'GET_BY_CATEGORY_RESTAURANTS_REQUESTED', category: {restaurantCategory}});
+        if(restaurantCategory.length>0)
+            dispatch({type: 'GET_BY_CATEGORY_RESTAURANTS_REQUESTED', category: {restaurantCategory}});
     }
 
     let [page, setPage] = useState(1);
@@ -69,6 +71,14 @@ export default function Restaurants() {
         console.log(dataCount);
         setPage(p);
         _DATA.jump(p);
+    };
+
+    const [dialogState, setDialogState] = React.useState(false);
+    const handleCardCallback = (childData) => {
+        setDialogState(childData)
+    };
+    const handleDialogCallback = (childData) => {
+        setDialogState(childData)
     };
 
     return (
@@ -140,7 +150,7 @@ export default function Restaurants() {
                                   justify={'center'}
                                   alignContent={'center'}>
 
-                                <RestaurantCard  key={restaurant.id} restaurant={restaurant}/>
+                                <RestaurantCard  key={restaurant.id} restaurant={restaurant} parentCallback = {handleCardCallback}/>
 
                             </Grid>
 
@@ -169,10 +179,11 @@ export default function Restaurants() {
                     </Grid>
                 </Grid>
 
-                <RestaurantDialog />
+                <RestaurantDialog dialogState={dialogState} parentCallback = {handleDialogCallback}/>
+
             </div>
             <div>
-                <Snackbar open={error && !loading} autoHideDuration={3000}>
+                <Snackbar open={error.length>0 && !loading} autoHideDuration={3000}>
                     <Alert variant="filled" severity="error">{error} !</Alert>
                 </Snackbar>
             </div>

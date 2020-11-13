@@ -3,7 +3,7 @@ import * as type from '../types';
 const initialState = {
     restaurants: [],
     loading: false,
-    error: null,
+    error: "",
 }
 
 export default function restaurants(state = initialState, action) {

@@ -10,16 +10,14 @@ import React, {useEffect, useState} from "react";
 
 const RestaurantCard = (props) => {
 
-    const {
-        visible: [visibilty, setVisibilty]
-    } = {
-        visible: useState(false),
-        ...(props.state || {})
+    const openDialog = (event) => {
+        props.parentCallback(true);
+        event.preventDefault();
     };
 
     return (
                     <Card elevation={5}>
-                        <CardActionArea>
+                        <CardActionArea onClick={openDialog}>
 
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h3">

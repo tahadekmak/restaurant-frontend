@@ -2,15 +2,15 @@ import React, {useCallback, useEffect, useState} from "react";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {ThemeProvider} from "@material-ui/styles";
-import theme from "./theme";
+import theme from "../theme";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Pagination from "@material-ui/lab/Pagination";
 import usePagination from "./Pagination";
-import RestaurantDialog from "./components/RestaurantDialog";
-import RestaurantCard from "./components/RestaurantCard";
+import RestaurantDialog from "./RestaurantDialog";
+import RestaurantCard from "./RestaurantCard";
 import {useDispatch, useSelector} from "react-redux";
-import ColoredLinearProgress from "./components/ColoredLinearProgress";
+import ColoredLinearProgress from "./ColoredLinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
@@ -47,8 +47,8 @@ export default function Restaurants() {
 
     const dispatch = useDispatch();
     const restaurants = useSelector(state => state.restaurants.restaurants);
-    const loading = useSelector(state => state.restaurants.loading);
-    const error = useSelector(state => state.restaurants.error);
+    const loadingRestaurants = useSelector(state => state.restaurants.loading);
+    const restaurantsError = useSelector(state => state.restaurants.error);
 
     const PER_PAGE = 4;
     const dataCount = Math.ceil(restaurants.length / PER_PAGE);
@@ -73,19 +73,19 @@ export default function Restaurants() {
         _DATA.jump(p);
     };
 
-    const [dialogState, setDialogState] = React.useState(false);
+    const [dialogID, setDialogID] = React.useState("");
     const handleCardCallback = (childData) => {
-        setDialogState(childData)
+        setDialogID(childData)
     };
     const handleDialogCallback = (childData) => {
-        setDialogState(childData)
+        setDialogID(childData)
     };
 
     return (
         <ThemeProvider theme={theme}>
 
             <div>
-                {loading && <ColoredLinearProgress />}
+                {loadingRestaurants && <ColoredLinearProgress />}
 
             </div>
 
@@ -135,7 +135,6 @@ export default function Restaurants() {
                             <Button style={buttonStyle} variant="contained" color="primary" onClick={getRestaurantsByCategoryClicked}>Search</Button>
                         </div>
                     </Grid>
-
                 </Grid>
                 </div>
                 <Grid container
@@ -144,7 +143,7 @@ export default function Restaurants() {
                       spacing={5}
                 >
                     <>
-                        {restaurants.length === 0 && !loading && <h1>Search Restaurants by Name or Category</h1>}
+                        {restaurants.length === 0 && !loadingRestaurants && <h1>Search Restaurants by Name or Category</h1>}
                         {restaurants.length > 0 && _DATA.currentData().map((restaurant) => (
                             <Grid item
                                   justify={'center'}
@@ -158,7 +157,6 @@ export default function Restaurants() {
                     </>
 
                 </Grid>
-
                 <Grid container
                       justify={'center'}
                       alignContent={'center'}
@@ -179,12 +177,17 @@ export default function Restaurants() {
                     </Grid>
                 </Grid>
 
-                <RestaurantDialog dialogState={dialogState} parentCallback = {handleDialogCallback}/>
+                <div>{restaurants.filter(res => res.id === parseInt(dialogID)).map(restaurant => (
+
+                    <RestaurantDialog dialogState={parseInt(dialogID) > 0} restaurant={restaurants.length > 0 && restaurant} parentCallback = {handleDialogCallback}/>
+                    ))}
+
+                </div>
 
             </div>
             <div>
-                <Snackbar open={error.length>0 && !loading} autoHideDuration={3000}>
-                    <Alert variant="filled" severity="error">{error} !</Alert>
+                <Snackbar open={restaurantsError.length>0 && !loadingRestaurants} autoHideDuration={2000}>
+                    <Alert variant="filled" severity="error">{restaurantsError} !</Alert>
                 </Snackbar>
             </div>
         </ThemeProvider>

@@ -9,7 +9,6 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import RestaurantIcon from "@material-ui/icons/Restaurant";
 import ListItemText from "@material-ui/core/ListItemText";
-import {default as data} from "../MOCK_DATA.json";
 import Divider from "@material-ui/core/Divider";
 import PublicIcon from "@material-ui/icons/Public";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
@@ -18,15 +17,60 @@ import CallIcon from "@material-ui/icons/Call";
 import DialogActions from "@material-ui/core/DialogActions";
 import {Button} from "@material-ui/core";
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 const RestaurantDialog = (props) => {
 
-    const closeDialog = (event) => {
-        props.parentCallback(false);
-        event.preventDefault();
+    const dispatch = useDispatch();
+    const visits = useSelector(state => state.visits.visits);
+    const loadingVisits = useSelector(state => state.visits.loading);
+    const visitsError = useSelector(state => state.visits.error);
+    const successSnackbarOpen = useSelector(state => state.visits.successSnackbarOpen);
+    const errorSnackbarOpen = useSelector(state => state.visits.errorSnackbarOpen);
+
+    const closeDialog = () => {
+        props.parentCallback("");
+        //event.preventDefault();
     };
 
+    const clearSnackbar = () => {
+        dispatch({ type: "POST_VISIT_CLEAR" });
+    };
+
+    const createVisitClicked = () => {
+
+        console.log(props.restaurant);
+        const personID = "1";
+        const restaurantID = props.restaurant.id.toString();
+        const today = new Date();
+        const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+
+        const visitData = {
+            personID,
+            restaurantID,
+            date
+        }
+
+        dispatch({type: 'POST_VISIT_REQUESTED', data: {visitData}});
+    }
+
     return (
+        <div>
+            <Snackbar
+                open={errorSnackbarOpen}
+                autoHideDuration={1000}
+                onClose={clearSnackbar}>
+                <Alert variant="filled" severity="error">{visitsError}</Alert>
+            </Snackbar>
+            <Snackbar
+                open={successSnackbarOpen}
+                autoHideDuration={1000}
+                onClose={clearSnackbar}>
+                <Alert variant="filled" severity="success">You Checked in!</Alert>
+            </Snackbar>
+
         <Dialog aria-labelledby="customized-dialog-title"
                 open={props.dialogState}
                 onClose={closeDialog}>
@@ -51,7 +95,7 @@ const RestaurantDialog = (props) => {
                                                         <RestaurantIcon/>
                                                     </Avatar>
                                                 </ListItemAvatar>
-                                                <ListItemText primary="Name" secondary={data[0].name}/>
+                                                <ListItemText primary="Name" secondary={props.restaurant.name}/>
                                             </ListItem>
                                             <Divider/>
 
@@ -61,7 +105,7 @@ const RestaurantDialog = (props) => {
                                                         <PublicIcon/>
                                                     </Avatar>
                                                 </ListItemAvatar>
-                                                <ListItemText primary="Type" secondary={data[0].type}/>
+                                                <ListItemText primary="Type" secondary={props.restaurant.category }/>
                                             </ListItem>
                                             <Divider/>
 
@@ -72,7 +116,7 @@ const RestaurantDialog = (props) => {
                                                     </Avatar>
                                                 </ListItemAvatar>
                                                 <ListItemText primary="Average Cost"
-                                                              secondary={data[0].averageCost + " $ for 2 persons"}/>
+                                                              secondary={props.restaurant.averageCost + " $ for 2 persons"}/>
                                             </ListItem>
                                             <Divider/>
 
@@ -82,7 +126,7 @@ const RestaurantDialog = (props) => {
                                                         <LocationOnIcon/>
                                                     </Avatar>
                                                 </ListItemAvatar>
-                                                <ListItemText primary="Address" secondary={data[0].address}/>
+                                                <ListItemText primary="Address" secondary={props.restaurant.address}/>
                                             </ListItem>
                                             <Divider/>
 
@@ -92,7 +136,7 @@ const RestaurantDialog = (props) => {
                                                         <CallIcon/>
                                                     </Avatar>
                                                 </ListItemAvatar>
-                                                <ListItemText primary="Call us" secondary={data[0].phoneNumber}/>
+                                                <ListItemText primary="Call us" secondary={props.restaurant.phoneNumber}/>
                                             </ListItem>
                                         </List>
                                     </div>
@@ -107,12 +151,14 @@ const RestaurantDialog = (props) => {
                 <Button color="primary" onClick={closeDialog}>
                     Close
                 </Button>
-                <Button color="primary">
+                <Button color="primary" onClick={createVisitClicked}>
                     Check in
                 </Button>
 
             </DialogActions>
         </Dialog>
+        </div>
+
     )
 
 }

@@ -34,10 +34,10 @@ function* getVisitById(action) {
 function* createVisit(action) {
     try {
         const url = `http://localhost:8080/api/v1/visit`;
-        const visits = yield call(axios.post, url, action.value);
+        const visits = yield call(axios.post, url, action.data.visitData);
         yield put({type: 'POST_VISIT_SUCCESS'});
     } catch (e) {
-        yield put({type: 'POST_VISIT_FAILED', message: e.message,});
+        yield put({type: 'POST_VISIT_FAILED', message: e.message, });
     }
 }
 

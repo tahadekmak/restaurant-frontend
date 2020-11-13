@@ -3,7 +3,9 @@ import * as type from '../types';
 const initialState = {
     visits: [],
     loading: false,
-    error: null,
+    error: "",
+    successSnackbarOpen: false,
+    errorSnackbarOpen: false
 }
 
 export default function visits(state = initialState, action) {
@@ -71,11 +73,19 @@ export default function visits(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                successSnackbarOpen: true
             }
+        case type.POST_VISIT_CLEAR:
+            return {
+                ...state,
+                successSnackbarOpen: false,
+                errorSnackbarOpen: false,
+            };
         case type.POST_VISIT_FAILED:
             return {
                 ...state,
                 loading: false,
+                errorSnackbarOpen: true,
                 error: action.message,
             }
 

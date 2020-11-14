@@ -20,6 +20,8 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import CardMedia from "@material-ui/core/CardMedia";
+import {getDateForPost} from "./DateConverter";
 
 const RestaurantDialog = (props) => {
 
@@ -41,11 +43,9 @@ const RestaurantDialog = (props) => {
 
     const createVisitClicked = () => {
 
-        console.log(props.restaurant);
         const personID = "1";
         const restaurantID = props.restaurant.id.toString();
-        const today = new Date();
-        const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        const date = getDateForPost();
 
         const visitData = {
             personID,
@@ -54,6 +54,7 @@ const RestaurantDialog = (props) => {
         }
 
         dispatch({type: 'POST_VISIT_REQUESTED', data: {visitData}});
+        closeDialog();
     }
 
     return (
@@ -84,7 +85,10 @@ const RestaurantDialog = (props) => {
                                 <div>
                                     <div>
                                         <ButtonBase>
-                                            <img src={image1} alt={""}/>
+                                            <img
+                                                height="300px"
+                                                src={`data:image/jpg;base64,${props.restaurant.image}`}
+                                                alt={""}/>
                                         </ButtonBase>
                                     </div>
                                     <div>
@@ -116,7 +120,7 @@ const RestaurantDialog = (props) => {
                                                     </Avatar>
                                                 </ListItemAvatar>
                                                 <ListItemText primary="Average Cost"
-                                                              secondary={props.restaurant.averageCost + " $ for 2 persons"}/>
+                                                              secondary={props.restaurant.averageCost + " L.L. for 2 persons"}/>
                                             </ListItem>
                                             <Divider/>
 

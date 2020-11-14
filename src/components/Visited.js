@@ -10,6 +10,7 @@ import TableBody from "@material-ui/core/TableBody";
 import Box from "@material-ui/core/Box";
 import {useDispatch, useSelector} from "react-redux";
 import Typography from "@material-ui/core/Typography";
+import getDate, {getDateForGet} from "./DateConverter";
 
 function Visited() {
 
@@ -55,7 +56,7 @@ function Visited() {
         <div style={divStyle}>
             <Typography gutterBottom variant="h5" component="h3">
             </Typography>
-            <Box width="80%" bgcolor={"red.300"}>
+            <Box width="80%">
                     <TableContainer component={Paper}>
                         <Table aria-label="customized table">
                             <TableHead>
@@ -68,7 +69,7 @@ function Visited() {
                                 {visits.map((row) => (
                                     <StyledTableRow key={row.restaurantName}>
                                         <StyledTableCell component="th" scope="row">{row.restaurantName}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.visitDate}</StyledTableCell>
+                                        <StyledTableCell align="right">{getDateForGet(row.visitDate)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>

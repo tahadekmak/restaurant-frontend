@@ -10,6 +10,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import {getDateForPost} from "./DateConverter";
 
 const RestaurantCard = (props) => {
 
@@ -34,8 +35,7 @@ const RestaurantCard = (props) => {
 
         const personID = "1";
         const restaurantID = props.restaurant.id.toString();
-        const today = new Date();
-        const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        const date = getDateForPost();
 
         const visitData = {
             personID,
@@ -61,7 +61,8 @@ const RestaurantCard = (props) => {
                 <Alert variant="filled" severity="success">You Checked in!</Alert>
             </Snackbar>
 
-                    <Card elevation={5}>
+                    <Card elevation={5} style={{width: "300px"}}>
+
                         <CardActionArea onClick={openDialog}>
 
                             <CardContent>
@@ -75,8 +76,9 @@ const RestaurantCard = (props) => {
                                 alt="Image not available"
                                 height="170"
                                 image={`data:image/jpg;base64,${props.restaurant.image}`}
-                                title="Contemplative Reptile"
+                                title="image"
                             />
+
                         </CardActionArea>
                         <CardActions style={{float: "right"}}>
                             <Button color="primary" onClick={createVisitClicked}>

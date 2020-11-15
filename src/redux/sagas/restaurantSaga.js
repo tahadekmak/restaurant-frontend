@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import axios from 'axios';
 
 function* getAllRestaurants() {
@@ -13,7 +13,6 @@ function* getAllRestaurants() {
 
 function* getRestaurantsByName(action) {
     try {
-
         const url = `http://localhost:8080/api/v1/restaurantsByName/${action.name.restaurantName}`;
         const restaurants = yield call(axios.get, url);
         yield put({type: 'GET_BY_NAME_RESTAURANTS_SUCCESS', restaurants: restaurants.data});
@@ -24,7 +23,7 @@ function* getRestaurantsByName(action) {
 
 function* getRestaurantsByCategory(action) {
     try {
-        const url = `http://localhost:8080/api/v1/restaurantsByCategory/${action.category.restaurantCategory}`;
+        const url = `http://localhost:8080/api/v1/restaurantsByCategoryID/${action.categoryID.restaurantCategoryID}`;
         const restaurants = yield call(axios.get, url);
         yield put({type: 'GET_BY_CATEGORY_RESTAURANTS_SUCCESS', restaurants: restaurants.data});
     } catch (e) {
@@ -45,7 +44,7 @@ function* getRestaurantById(action) {
 function* createRestaurant(action) {
     try {
         const url = `http://localhost:8080/api/v1/restaurant`;
-        const restaurant = yield call(axios.post, url, action.value);
+        yield call(axios.post, url, action.value);
         yield put({type: 'POST_RESTAURANT_SUCCESS'});
     } catch (e) {
         yield put({type: 'POST_RESTAURANT_FAILED', message: e.message,});
@@ -55,8 +54,8 @@ function* createRestaurant(action) {
 function* updateRestaurant(action) {
     try {
         const url = `http://localhost:8080/api/v1/restaurant/${action.id}`;
-        const restaurant = yield call(axios.put, url, action.value);
-        yield put({type: 'PUT_RESTAURANT_SUCCESS', restaurant: restaurant});
+        yield call(axios.put, url, action.value);
+        yield put({type: 'PUT_RESTAURANT_SUCCESS'});
     } catch (e) {
         yield put({type: 'PUT_RESTAURANT_FAILED', message: e.message,});
     }
@@ -65,7 +64,7 @@ function* updateRestaurant(action) {
 function* deleteRestaurant(action) {
     try {
         const url = `http://localhost:8080/api/v1/restaurant/${action.id}`;
-        const restaurant = yield call(axios.delete, url);
+        yield call(axios.delete, url);
         yield put({type: 'DELETE_RESTAURANT_SUCCESS'});
     } catch (e) {
         yield put({type: 'DELETE_RESTAURANT_FAILED', message: e.message,});

@@ -1,0 +1,38 @@
+.appBar {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 60px;
+    user-select: none;
+}
+
+.tableContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.resPageContainer {
+    padding: 40px;
+}
+
+.buttonContainer {
+    margin: 10px;
+}
+
+.autoComplete {
+    min-width: 200px;
+}
+
+.controllerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}

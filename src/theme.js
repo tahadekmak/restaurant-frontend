@@ -19,13 +19,17 @@ theme.props = {
 
     MuiButton: {
         disableElevation: true,
+        color: "primary"
     },
 
     MuiTab: {
         background: "primary",
         border: 0,
-        borderRadius: 3,
     },
+
+    MuiAlert: {
+        variant: "filled"
+    }
 };
 
 export default theme;

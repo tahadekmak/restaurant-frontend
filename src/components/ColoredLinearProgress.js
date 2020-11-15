@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { LinearProgress } from '@material-ui/core';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {LinearProgress} from '@material-ui/core';
 
 class ColoredLinearProgress extends Component {
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         return (
             <LinearProgress
                 {...this.props}

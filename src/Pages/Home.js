@@ -1,15 +1,15 @@
 import React from "react";
 import {ThemeProvider} from "@material-ui/styles";
-import theme from "./theme";
+import theme from "../theme";
 import {AppBar, Tab, Tabs} from "@material-ui/core";
-import Restaurants from "./components/Restaurants";
-import Visited from "./components/Visited";
-import {styled} from "@material-ui/core/styles";
+import Restaurants from "./Restaurants";
+import Visited from "./Visited";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PropTypes from 'prop-types';
 import Toolbar from "@material-ui/core/Toolbar";
+import './Pages.css'
 
 const Home = props => {
     const {match, history} = props;
@@ -33,24 +33,9 @@ const Home = props => {
         setSelectedTab(newValue);
     };
 
-    const MyTitle = styled("h2")({
-        display: 'flex',
-        background: "primary",
-        border: 0,
-        paddingLeft: '20px',
-        paddingRight: '60px',
-        userSelect: 'none'
-    });
-
-    const divStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        background: theme
-    }
-
     function HideOnScroll(props) {
-        const { children, window } = props;
-        const trigger = useScrollTrigger({ target: window ? window() : undefined });
+        const {children, window} = props;
+        const trigger = useScrollTrigger({target: window ? window() : undefined});
 
         return (
             <Slide appear={false} direction="down" in={!trigger}>
@@ -67,19 +52,19 @@ const Home = props => {
     return (
         <ThemeProvider theme={theme}>
             <>
-                <CssBaseline />
+                <CssBaseline/>
                 <HideOnScroll  {...props}>
-                <AppBar>
-                    <div style={divStyle}>
-                        <MyTitle>Resto</MyTitle>
-                        <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Restaurants"/>
-                            <Tab label="Visited"/>
-                        </Tabs>
-                    </div>
-                </AppBar>
+                    <AppBar>
+                        <div className="appBar">
+                            <h2 className="title">Resto</h2>
+                            <Tabs value={selectedTab} onChange={handleChange}>
+                                <Tab label="Restaurants"/>
+                                <Tab label="Visited"/>
+                            </Tabs>
+                        </div>
+                    </AppBar>
                 </HideOnScroll>
-                <Toolbar />
+                <Toolbar/>
                 {selectedTab === 0 && <Restaurants/>}
                 {selectedTab === 1 && <Visited/>}
             </>

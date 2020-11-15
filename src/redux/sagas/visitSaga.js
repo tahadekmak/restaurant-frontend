@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import axios from 'axios';
 
 function* getAllVisits() {
@@ -34,10 +34,10 @@ function* getVisitById(action) {
 function* createVisit(action) {
     try {
         const url = `http://localhost:8080/api/v1/visit`;
-        const visits = yield call(axios.post, url, action.data.visitData);
+        yield call(axios.post, url, action.data.visitData);
         yield put({type: 'POST_VISIT_SUCCESS'});
     } catch (e) {
-        yield put({type: 'POST_VISIT_FAILED', message: e.message, });
+        yield put({type: 'POST_VISIT_FAILED', message: e.message,});
     }
 }
 
@@ -54,7 +54,7 @@ function* updateVisit(action) {
 function* deleteVisit(action) {
     try {
         const url = `http://localhost:8080/api/v1/visit/${action.id}`;
-        const visits = yield call(axios.delete, url);
+        yield call(axios.delete, url);
         yield put({type: 'DELETE_VISIT_SUCCESS'});
     } catch (e) {
         yield put({type: 'DELETE_VISIT_FAILED', message: e.message,});

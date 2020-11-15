@@ -39,11 +39,17 @@ export default function visits(state = initialState, action) {
                 loading: false,
                 visits: action.visits
             }
+        case type.GET_BY_PERSON_ID_VISITS_CLEAR:
+            return {
+                ...state,
+                errorSnackbarOpen: false,
+            };
         case type.GET_BY_PERSON_ID_VISITS_FAILED:
             return {
                 ...state,
                 loading: false,
                 error: action.message,
+                errorSnackbarOpen: true,
             }
 
         case type.GET_BY_ID_VISIT_REQUESTED:

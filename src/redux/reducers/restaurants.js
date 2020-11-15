@@ -4,6 +4,7 @@ const initialState = {
     restaurants: [],
     loading: false,
     error: "",
+    errorSnackbarOpen: false
 }
 
 export default function restaurants(state = initialState, action) {
@@ -37,11 +38,17 @@ export default function restaurants(state = initialState, action) {
                 loading: false,
                 restaurants: action.restaurants
             }
+        case type.GET_BY_NAME_RESTAURANTS_CLEAR:
+            return {
+                ...state,
+                errorSnackbarOpen: false,
+            };
         case type.GET_BY_NAME_RESTAURANTS_FAILED:
             return {
                 ...state,
                 loading: false,
                 error: action.message,
+                errorSnackbarOpen: true,
             }
 
         case type.GET_BY_CATEGORY_RESTAURANTS_REQUESTED:
@@ -55,11 +62,17 @@ export default function restaurants(state = initialState, action) {
                 loading: false,
                 restaurants: action.restaurants
             }
+        case type.GET_BY_CATEGORY_RESTAURANTS_CLEAR:
+            return {
+                ...state,
+                errorSnackbarOpen: false,
+            };
         case type.GET_BY_CATEGORY_RESTAURANTS_FAILED:
             return {
                 ...state,
                 loading: false,
                 error: action.message,
+                errorSnackbarOpen: true
             }
 
         case type.GET_BY_ID_RESTAURANT_REQUESTED:

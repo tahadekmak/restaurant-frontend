@@ -101,6 +101,7 @@ export default function Restaurants() {
                                         label="Search in Restaurants"
                                         margin="normal"
                                         variant="outlined"
+                                        className="autoComplete"
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') getRestaurantsByNameClicked();
                                         }}

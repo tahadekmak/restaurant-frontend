@@ -33,7 +33,7 @@ function* getVisitById(action) {
 
 function* createVisit(action) {
     try {
-        const url = `http://localhost:8080/api/v1/visit`;
+        const url = `http://localhost:8080/api/v1/visit/person/${action.personId.personId}/restaurant/${action.restaurantId.restaurantId}`;
         yield call(axios.post, url, action.data.visitData);
         yield put({type: 'POST_VISIT_SUCCESS'});
     } catch (e) {
@@ -43,8 +43,8 @@ function* createVisit(action) {
 
 function* updateVisit(action) {
     try {
-        const url = `http://localhost:8080/api/v1/visit/${action.id}`;
-        const visits = yield call(axios.put, url, action.value);
+        const url = `http://localhost:8080/api/v1/visit/${action.id}/person/${action.personId}/restaurant/${action.restaurantId}`;
+        const visits = yield call(axios.put, url, action.data.visitData);
         yield put({type: 'PUT_VISIT_SUCCESS', visits: visits.data});
     } catch (e) {
         yield put({type: 'PUT_VISIT_FAILED', message: e.message,});

@@ -38,17 +38,15 @@ const RestaurantDialog = (props) => {
 
     const createVisitClicked = () => {
 
-        const personID = "1";
-        const restaurantID = props.restaurant.id.toString();
+        const personId = "1";
+        const restaurantId = props.restaurant.id.toString();
         const date = getDateForPost();
 
         const visitData = {
-            personID,
-            restaurantID,
             date
         }
 
-        dispatch({type: 'POST_VISIT_REQUESTED', data: {visitData}});
+        dispatch({type: 'POST_VISIT_REQUESTED', personId: {personId}, restaurantId: {restaurantId}, data: {visitData}});
         closeDialog();
     }
 
@@ -91,7 +89,7 @@ const RestaurantDialog = (props) => {
                                                             <PublicIcon/>
                                                         </Avatar>
                                                     </ListItemAvatar>
-                                                    <ListItemText primary="Type" secondary={props.restaurant.category}/>
+                                                    <ListItemText primary="Type" secondary={props.restaurant.category.name}/>
                                                 </ListItem>
                                                 <Divider/>
 

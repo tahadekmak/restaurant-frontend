@@ -75,9 +75,9 @@ function Visited() {
                         </TableHead>
                         <TableBody>
                             {visits.map((row) => (
-                                <StyledTableRow key={row.visitID}>
-                                    <StyledTableCell component="th" scope="row">{row.restaurantName}</StyledTableCell>
-                                    <StyledTableCell align="right">{getDateForGet(row.visitDate)}</StyledTableCell>
+                                <StyledTableRow key={row.id}>
+                                    <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+                                    <StyledTableCell align="right">{getDateForGet(row.date)}</StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>

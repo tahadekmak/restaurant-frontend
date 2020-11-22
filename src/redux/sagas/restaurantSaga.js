@@ -43,7 +43,7 @@ function* getRestaurantById(action) {
 
 function* createRestaurant(action) {
     try {
-        const url = `http://localhost:8080/api/v1/restaurant`;
+        const url = `http://localhost:8080/api/v1/restaurant/category/${action.categoryId}`;
         yield call(axios.post, url, action.value);
         yield put({type: 'POST_RESTAURANT_SUCCESS'});
     } catch (e) {
@@ -53,7 +53,7 @@ function* createRestaurant(action) {
 
 function* updateRestaurant(action) {
     try {
-        const url = `http://localhost:8080/api/v1/restaurant/${action.id}`;
+        const url = `http://localhost:8080/api/v1/restaurant/${action.id}/category/${action.categoryId}`;
         yield call(axios.put, url, action.value);
         yield put({type: 'PUT_RESTAURANT_SUCCESS'});
     } catch (e) {

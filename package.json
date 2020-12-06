@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
     "moment": "^2.29.1",
+    "ngrok": "^3.3.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-autosuggest": "^10.0.3",

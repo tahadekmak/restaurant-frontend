@@ -12,7 +12,7 @@ const sms = new SitemapAndIndexStream({
 
     getSitemapStream: (i) => {
         const sitemapStream = new SitemapStream({
-            hostname: 'https://creid.ai',
+            hostname: 'http://9388fd6287cc.ngrok.io',
         });
         const path = `./sitemap-${i}.xml`;
 
@@ -21,7 +21,7 @@ const sms = new SitemapAndIndexStream({
             .pipe(createWriteStream(resolve(path + '.gz'))); // write it to sitemap-NUMBER.xml
 
         return [
-            new URL(path, 'https://creid.ai/property').toString(),
+            new URL(path, 'http://9388fd6287cc.ngrok.io/').toString() + '.gz',
             sitemapStream,
         ];
     },

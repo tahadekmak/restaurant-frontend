@@ -32,10 +32,11 @@ function* getRestaurantsByCategory(action) {
 }
 
 function* getRestaurantById(action) {
-    try {
-        const url = `http://localhost:8080/api/v1/restaurant/${action.id}`;
-        const restaurant = yield call(axios.get, url);
-        yield put({type: 'GET_BY_ID_RESTAURANT_SUCCESS', restaurant: restaurant.data});
+    try {console.log("id"+action.id.id);
+        const url = `http://localhost:8080/api/v1/restaurant/${action.id.id}`;
+        const restaurants = yield call(axios.get, url);
+        yield put({type: 'GET_BY_ID_RESTAURANT_SUCCESS', restaurants: restaurants.data})
+        console.log(restaurants.data);
     } catch (e) {
         yield put({type: 'GET_BY_ID_RESTAURANT_FAILED', message: e.message});
     }

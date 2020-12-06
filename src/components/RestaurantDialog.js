@@ -54,9 +54,6 @@ const RestaurantDialog = (props) => {
     return (
         <div>
 
-            <Helmet>
-                <title>{props.restaurant.name}</title>
-                <meta name="title" content={props.restaurant.name}/></Helmet>
 
             <Dialog aria-labelledby="customized-dialog-title"
                     open={props.dialogState}

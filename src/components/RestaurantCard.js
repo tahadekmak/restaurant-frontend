@@ -11,6 +11,7 @@ import Alert from "@material-ui/lab/Alert";
 import {getDateForPost} from "./DateConverter";
 import React from "react";
 import './Components.css';
+import Helmet from "react-helmet";
 
 const RestaurantCard = (props) => {
 
@@ -43,6 +44,7 @@ const RestaurantCard = (props) => {
 
     return (
         <div>
+
             <Card elevation={5} className="restaurantCard">
 
                 <CardActionArea onClick={openDialog}>
@@ -81,7 +83,6 @@ const RestaurantCard = (props) => {
                 onClose={clearSnackbar}>
                 <Alert severity="success">You Checked in!</Alert>
             </Snackbar>
-
         </div>
     )
 }

@@ -20,6 +20,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import {getDateForPost} from "./DateConverter";
+import Helmet from "react-helmet";
 
 const RestaurantDialog = (props) => {
 
@@ -52,6 +53,11 @@ const RestaurantDialog = (props) => {
 
     return (
         <div>
+
+            <Helmet>
+                <title>{props.restaurant.name}</title>
+                <meta name="title" content={props.restaurant.name}/></Helmet>
+
             <Dialog aria-labelledby="customized-dialog-title"
                     open={props.dialogState}
                     onClose={closeDialog}>

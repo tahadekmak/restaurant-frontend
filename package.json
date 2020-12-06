@@ -55,8 +55,10 @@
     "@material-ui/icons": "^4.9.1",
     "autoresponsive-react": "^1.1.31",
     "axios": "^0.21.0",
+    "json-loader": "^0.5.7",
     "react-moment": "^1.0.0",
     "redux-devtools": "^3.7.0",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "sitemap": "^6.3.3"
   }
 }

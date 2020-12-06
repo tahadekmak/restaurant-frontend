@@ -1,6 +1,5 @@
-import React, {Component, useState} from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {Button, LinearProgress} from '@material-ui/core';
+import React, {useState} from 'react';
+import {Button} from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
